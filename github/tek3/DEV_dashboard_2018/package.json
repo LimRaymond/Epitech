@@ -1,0 +1,40 @@
+{
+  "name": "dashboard",
+  "version": "1.0.0",
+  "description": "site avec express et passport",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Silver Crow (joris vidéo)",
+  "license": "MIT",
+  "dependencies": {
+    "async": "^2.6.1",
+    "axios": "^0.18.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.2",
+    "bulma": "^0.7.1",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.3",
+    "dotenv": "^6.1.0",
+    "ejs": "^2.6.1",
+    "express": "^4.16.2",
+    "express-handlebars": "^3.0.0",
+    "express-messages": "^1.0.1",
+    "express-session": "^1.15.6",
+    "express-validator": "^4.3.0",
+    "google-auth-library": "^2.0.0",
+    "googleapis": "^34.0.0",
+    "ipware": "^1.0.0",
+    "mongodb": "^2.2.36",
+    "mongoose": "^4.13.17",
+    "openweathermap-node": "^1.1.2",
+    "passport": "^0.4.0",
+    "passport-http": "^0.3.0",
+    "passport-local": "^1.0.0",
+    "popper.js": "^1.12.5",
+    "request": "^2.88.0",
+    "simple-oauth2": "^2.2.1",
+    "youtube-info": "^1.2.1"
+  }
+}

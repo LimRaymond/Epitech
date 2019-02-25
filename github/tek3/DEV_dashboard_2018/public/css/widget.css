@@ -1,0 +1,58 @@
+body {
+  min-height: 98vh;
+  background-image: url("/img/workspace5.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.menu-header {
+  background-color: rgb(17, 16, 16);
+}
+
+.widget {
+  font-weight: 800;
+  border: 1px solid white;
+  border-radius: 20px;
+}
+
+.widget:hover {
+  background-color: rgba(253, 122, 122, 0.5);
+  border: 1px solid rgba(253, 122, 122, 1);
+  cursor: pointer;
+}
+
+#titleDash {
+  margin-left: 42px;
+}
+
+#logoutBtn {
+  margin-right: 32px;
+}
+
+.listWidget {
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: 10px;
+}
+
+.delWid {
+  background-color: inherit;
+  border: 0px solid white;
+  margin-right: 6px;
+  margin-top: 12px;
+}
+
+.moreWid,
+.delWid {
+  color: rgba(0, 0, 0, 0.733);
+}
+
+.posMoreWid,
+.posDelWid {
+  text-align: right;
+}
+
+.moreWid {
+  margin-right: 12px;
+  margin-bottom: 12px;
+}

@@ -1,0 +1,102 @@
+.myhide {
+  display: none;
+}
+
+#bite {
+  display: block;
+  margin-left: 50%;
+  background-color: #dc4146;
+  color: white;
+  font-weight: bold;
+  line-height: 40px;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  font-size: 26px;
+  outline: 0;
+  border: 0;
+}
+
+.header,
+.body,
+.footer {
+  padding-right: 1rem;
+  padding-left: 1rem;
+}
+.header {
+  padding-bottom: 1rem;
+  border-bottom: 0.05rem solid #e5e5e5;
+}
+
+.header h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 3rem;
+}
+
+.footer {
+  padding-top: 1.5rem;
+  color: #777;
+  border-top: 0.05rem solid #e5e5e5;
+}
+
+@media (min-width: 48em) {
+  .container {
+    max-width: 46rem;
+  }
+}
+.container-narrow > hr {
+  margin: 2rem 0;
+}
+
+.jumbotron {
+  text-align: center;
+  border-bottom: 0.05rem solid #e5e5e5;
+}
+.jumbotron .btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 1.5rem;
+}
+
+.marketing {
+  margin: 3rem 0;
+}
+.marketing p + h4 {
+  margin-top: 1.5rem;
+}
+
+@media screen and (min-width: 48em) {
+  .header,
+  .marketing,
+  .footer {
+    padding-right: 0;
+    padding-left: 0;
+  }
+  .header {
+    margin-bottom: 2rem;
+  }
+  .jumbotron {
+    border-bottom: 0;
+  }
+}
+.header {
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.clearfix::after {
+  display: none !important;
+}
+footer {
+  margin-top: 40px;
+}
+button {
+  cursor: pointer;
+}
+.nav-pills .nav-link.active,
+.show > .nav-pills .nav-link {
+  border: 1px solid #007bff;
+  color: #007bff;
+  background: none;
+}

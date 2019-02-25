@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard</title>
+
+    <link rel="icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/widget.css">
+</head>
+
+<body>
+    <nav class="z-depth-3 menu-header">
+        <div class="nav-wrapper">
+            <a href="/" id="titleDash" class="brand-logo">Dashboard</a>
+            <a href="/" data-target="mobile-demo" class="sidenav-trigger">
+                <i class="material-icons">menu</i>
+            </a>
+            <ul class="right hide-on-med-and-down">
+                <li>
+                    <a href="/">Dashboard</a>
+                </li>
+
+                <% if(user) { %>
+                    <li>
+                        <a id="logoutBtn" href="/users/logout">Logout</a>
+                    </li>
+                    <% } else { %>
+                        <li>
+                            <a href="/users/login">Login</a>
+                        </li>
+                        <li>
+                            <a href="/users/register">Register</a>
+                        </li>
+                        <% } %>
+            </ul>
+        </div>
+    </nav>
+    <ul class="sidenav" id="mobile-demo">
+        <li>
+            <a id="titleDash" href="/">Dashboard</a>
+        </li>
+        <% if(user) { %>
+            <li>
+                <a href="/users/logout">Logout</a>
+            </li>
+            <% } else { %>
+                <li>
+                    <a href="/users/login">Login</a>
+                </li>
+                <li>
+                    <a href="/users/register">Register</a>
+                </li>
+                <% } %>
+    </ul>
+    <div class="row body">
+        <div class="col-lg-12">
+            <% if(success_msg.length > 0) { %>
+                <div class="alert alert-success">
+                    <%= success_msg %>
+                </div>
+                <% } %>
+
+                    <% if(error_msg.length > 0) { %>
+                        <div class="alert alert-danger">
+                            <%= error_msg %>
+                        </div>
+                        <% } %>
+
+                            <% if(error.length > 0) { %>
+                                <div class="alert alert-danger">
+                                    <%= error %>
+                                </div>
+                                <% } %>
+        </div>
+    </div>
+
+    <!-- SIDE BAR -->
+
+    <!-- WIDGET HERE -->
+
+    <div id="listWidget" class="row listWidget">
+        <% for(var i = 0; i < widgetsResult.length; i++) { %>
+            <div id="<%=idInstance[i]%>" class="col s12 m6 l3">
+                <div class="card z-depth-3 widget">
+                    <div class="posDelWid">
+                        <form action="/deleteWidgets" method="post">
+                            <input type="hidden" id="idInstance" name="idInstance" value="<%= idInstance[i] %>">
+                            <button id="button-close-widget" class="small material-icons delWid" type="submit">delete</button>
+                        </form>
+                    </div>
+                    <div class="card-content black-text">
+                        <span class="card-title">
+                            <%= widgetsResult[i].title %>
+                        </span>
+                        <p>
+                            <%= widgetsResult[i].content %>
+                        </p>
+                    </div>
+                    <div class="posMoreWid">
+                        <a class="small material-icons moreWid modal-trigger" href="#modal-<%=idInstance[i]%>">settings</a>
+                    </div>
+                </div>
+            </div>
+            <div id="modal-<%=idInstance[i]%>" class="modal">
+                <div class="modal-content">
+                    <h4 style="padding-bottom: 20px;">Parameters</h4>
+                    <form action="/modifyWidgets" method="post">
+                    <div class="row">
+                        <div class="input-field col s12">
+                                <input type="hidden" id="idInstance2" name="idInstance2" value="<%=idInstance[i]%>">
+                                <input id="autocomplete-input" type="text" class="validate autocomplete" name="newParameter" autocomplete="off">
+                                <label for="autocomplete-input">
+                                    New Parameter
+                                </label>
+                            </div>
+                        </div>
+                        <button class="btn waves-effect waves-light black" type="submit">Submit
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <% } %>
+    </div>
+
+    <div class="fixed-action-btn">
+        <a class="btn-floating btn-large pulse red darken-2 z-depth-3 waves-effect waves-light modal-trigger" href="#modal1">
+            <i class="large material-icons">add</i>
+        </a>
+    </div>
+
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h4 style="padding-bottom: 20px;">Choose your service</h4>
+            <% for (var i = 0; i < widgets.services.length; i++) { %>
+                <div class="serviceName">
+                    <%= widgets.services[i].name %>
+                        <% for (var j = 0; j < widgets.services[i].widgets.length; j++) { %>
+                            <ul class="collapsible">
+                                <li>
+                                    <div class="collapsible-header">
+                                        <i class="material-icons">keyboard_arrow_down
+                                        </i>
+                                        <%= widgets.services[i].widgets[j].name %>
+                                    </div>
+                                    <div class="collapsible-body">
+                                        <div class="row">
+                                            <form class="col s12" action="/addWidgets" method="post">
+                                                <input type="hidden" id="widgetType" name="widgetType" value="<%= widgets.services[i].widgets[j].name %>">
+                                                <div class="row">
+                                                    <div class="input-field col s12">
+                                                        <% for (var k = 0; k < widgets.services[i].widgets[j].params.length; k++) { %>
+                                                            <input id="autocomplete-input" type="text" class="validate autocomplete" name="<%= widgets.services[i].widgets[j].params[k].name %>"
+                                                                autocomplete="off">
+                                                            <label for="autocomplete-input">
+                                                                <%= widgets.services[i].widgets[j].params[k].name %>
+                                                            </label>
+                                                            <% } %>
+                                                    </div>
+                                                </div>
+                                                <button class="btn waves-effect waves-light black" type="submit">Submit
+                                                    <i class="material-icons right">send</i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <% } %>
+                </div>
+                <% } %>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+        <script src="/js/Sortable.js"></script>
+        <script src="/js/effect.js"></script>
+</body>
+
+</html>
