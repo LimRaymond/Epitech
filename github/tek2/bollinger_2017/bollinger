@@ -1,0 +1,126 @@
+#!/usr/bin/env python3
+
+from sys import argv
+import os.path
+
+
+def moving_average(tab):
+    return sum(tab) / float(len(tab))
+
+
+def variance(tab):
+    m = moving_average(tab)
+    return moving_average([(x - m) ** 2 for x in tab])
+
+
+def ecartype(tab):
+    return variance(tab) ** 0.5
+
+
+def upper_band(tab):
+    ub = moving_average(tab) + (ecartype(tab) * coefficient)
+    return ub
+
+
+def lower_band(tab):
+    lb = moving_average(tab) - (ecartype(tab) * coefficient)
+    return lb
+
+
+def help():
+    print("Bollinger Bands\n")
+    print("USAGE")
+    print("   ./bollinger [-h] period standard_dev indexes_file index_number\n")
+    print("   period          number of indexes for the moving average")
+    print("   standard_dev    standard deviation coefficient to apply");
+    print("   indexes_file    file containing daily indexes")
+    print(
+        "   index_number    index number to compute moving average and Bollinger bands\n")
+    print("OPTIONS")
+    print("    -h             print the usage and quit.")
+
+
+def is_number(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        return False
+
+
+def index_check(values):
+    values1 = []
+    data = []
+    with open(file_name, "r") as file:
+        for value in file:
+            data.append(value)
+    for value in data:
+        try:
+            values1.append(float(value))
+        except ValueError:
+            exit(84)
+    valid_array = index
+    if valid_array >= period:
+        new_data = values1[index - period + 1:index + 1]
+        return new_data
+    else:
+        return 84
+
+
+def error_check():
+    return 84
+
+
+def main():
+    values1 = []
+    data = []
+    with open(file_name, "r") as file:
+        for value in file:
+            data.append(value)
+    for value in data:
+        try:
+            values1.append(float(value))
+        except ValueError:
+            exit(84)
+    len_values = len(values1)
+    if len_values < index:
+        return 84
+    if len_values < period:
+        return 84
+    if period > index:
+        return 84
+    else:
+        check_values = index_check(values1)
+        ma = moving_average(check_values)
+        sd = ecartype(check_values)
+        ub = upper_band(check_values)
+        lb = lower_band(check_values)
+        print("INPUT")
+        print("Index: %d" % index_disp)
+        print("Period: %d" % period)
+        print("SD_coef: %.2f\n" % coefficient)
+        print("OUTPUT")
+        print("MA: %.2f" % ma)
+        print("SD: %.2f" % sd)
+        print("B+: %.2f" % ub)
+        print("B-: %.2f" % lb)
+
+
+if __name__ == "__main__":
+    if len(argv) < 2 or len(argv) > 5:
+        exit(84)
+    if argv[1] == "-h":
+        help()
+        exit(0)
+    if not os.path.isfile(argv[3]):
+        exit(84)
+    else:
+        try:
+            file_name = argv[3]
+            period = int(argv[1])
+            coefficient = float(argv[2])
+            index = int(argv[4])
+            index_disp = int(argv[4])
+            main()
+        except ValueError:
+            exit(84)
